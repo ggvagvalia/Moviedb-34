@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct Moviedb_34App: App {
+    @StateObject var moviesListViewModel = MoviesListPageViewModel()
     var body: some Scene {
         WindowGroup {
             MainPage()
+                .environmentObject(moviesListViewModel)
         }
     }
 }

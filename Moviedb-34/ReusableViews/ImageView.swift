@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ImageView: View {
-    let imageJPG: String
+    let imageJPG: URL
     
     var body: some View {
-        if let imageURL = URL(string: imageJPG) {
+        if let imageURL = URL(string: "\(imageJPG)") {
             AsyncImage(url: imageURL) { image in
                 image
                     .resizable()
-                    .scaledToFit()
-                    .cornerRadius(20)
+                    .aspectRatio(7/9, contentMode: .fit)
+                    .scaledToFill()
             } placeholder: {
                 ProgressView()
             }

@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct Constants {
+    static let apiKey = "bbc41f31f09dbe8b992311ea057c7b9c"
+    static let url = "https://api.themoviedb.org/3/movie/popular?api_key=\(apiKey)"
+    static let genresUrl = "https://api.themoviedb.org/3/genre/movie/list?api_key=\(apiKey)"
+    static let imagePath = "https://image.tmdb.org/t/p/original/"
+    // trending Movies API
+    // let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=\(apiKey)"
+}

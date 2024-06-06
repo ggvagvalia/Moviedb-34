@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainPage: View {
     @State var selectedTab = 0
+    @EnvironmentObject var moviesListViewModel: MoviesListPageViewModel
     
     var body: some View {
         TabView(selection: $selectedTab ) {
@@ -18,7 +19,7 @@ struct MainPage: View {
                     Text("Movies")
                 }
                 .tag(0)
-            SearchPage()
+            SearchPage(selectedTab: $selectedTab)
                 .tabItem {
                     Image(systemName: "sparkle.magnifyingglass")
                     Text("Search")
@@ -30,4 +31,6 @@ struct MainPage: View {
 
 #Preview {
     MainPage()
+        .environmentObject(MoviesListPageViewModel())
+    
 }

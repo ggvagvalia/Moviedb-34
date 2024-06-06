@@ -1,0 +1,15 @@
+{
+  "originHash" : "abd369bd32974354053ede2635698db79ca3b27d268ab90c028ef52081fe4bdb",
+  "pins" : [
+    {
+      "identity" : "networkingnew",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ggvagvalia/NetworkingNew.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f09646a9fa683654d9e0d51656d8debd93706fad"
+      }
+    }
+  ],
+  "version" : 3
+}
