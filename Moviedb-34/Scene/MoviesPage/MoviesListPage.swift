@@ -25,6 +25,7 @@ struct MoviesListPage: View {
                         ForEach(movies, id: \.id) { movie in
                             NavigationLink(value: movie) {
                                 MoviesListView(image: movie.posterURL, title: movie.title, releaseDate: movie.release_date, language: movie.original_language, rating: movie.formattedVote)
+                                    .frame(height: Constants.movieListIpadHeight)
                                     .listStyle(.grouped)
                                     .background(Color.white)
                                     .cornerRadius(10)
