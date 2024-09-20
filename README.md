@@ -9,6 +9,7 @@ Favorites: Save your favorite movies and access them quickly on the favorites pa
 Built using SwiftUI and SwiftData for data handling and storage.
 
 ### Figma
+
 https://www.figma.com/design/wT2wVqgMAB7wsLo9CmRcHo/Movie?node-id=0-1&node-type=canvas
 
 <img width="275" alt="Screenshot 2024-09-20 at 4 21 22 AM" src="https://github.com/user-attachments/assets/67711463-b31c-44b4-a867-d6e6a96f64ce">
@@ -17,8 +18,9 @@ https://www.figma.com/design/wT2wVqgMAB7wsLo9CmRcHo/Movie?node-id=0-1&node-type=
 <img width="554" alt="Screenshot 2024-09-20 at 4 22 52 AM" src="https://github.com/user-attachments/assets/b03e1518-2139-4722-8c24-6f00398af90e">
 
 ### Features
--Dark/Light Mode
--UUsers can save movie To Favotites page - using SwiftData.
+
+- Dark/Light Mode
+- Users can save movie To Favotites page - using SwiftData.
 
 ### Api Documentation
 
