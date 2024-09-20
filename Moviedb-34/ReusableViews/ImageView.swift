@@ -15,7 +15,6 @@ struct ImageView: View {
             AsyncImage(url: imageURL) { image in
                 image
                     .resizable()
-                    .aspectRatio(7/9, contentMode: .fit)
                     .scaledToFill()
             } placeholder: {
                 ProgressView()

@@ -6,13 +6,82 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct FavouritesPage: View {
+    @Environment(\.modelContext) private var context
+    @EnvironmentObject var favorites: FavouritesPageViewModel
+    @EnvironmentObject var genresViewModel: GenresViewModel
+    @Query private var movies: [FavMoviesModel]
+    @State private var isLoading = false
+    
+    private var genres: [Genres] {
+        return genresViewModel.movieGenres
+    }
+    
+    private func filteredGenres(for movie: FavMoviesModel) -> [String] {
+        return movie.genreIDs.compactMap { genreId in
+            genres.first { $0.id == genreId }?.name
+        }
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            VStack {
+                if isLoading {
+                    ProgressView("Loading")
+                } else {
+                    ScrollView {
+                        ForEach(movies, id: \.self) { movie in
+                            NavigationLink(value: movie) {
+                                MovieSearchView(image: movie.posterURL, title: movie.title, releaseDate: movie.releaseDate, language: movie.originalLanguage, rating: movie.formattedVote, genre: filteredGenres(for: movie))
+                                    .listStyle(.grouped)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                                    .padding(.bottom, 20)
+                            }
+                        }
+                    }
+                    .safeAreaPadding(.leading)
+                    .safeAreaPadding(.trailing)
+                    .navigationDestination(for: FavMoviesModel.self) { movie in
+                        MovieDetailsPage(movieTitle: movie.title, movieDescription: movie.overview, releaseDate: movie.releaseDate, genre: filteredGenres(for: movie), posterImage: movie.posterURL, backdropImage: movie.backdropImageURL, rating: movie.formattedVote, language: movie.originalLanguage)
+                    }
+                }
+            }
+            .navigationTitle("Favourites")
+        }
+        
+        .onAppear {
+            for movie in movies {
+                let isHearted = favorites.loadHeartedState(for: movie)
+                if isHearted {
+                    favorites.addFavorite(movie, context: context)
+                }
+            }
+        }
     }
 }
 
-#Preview {
-    FavouritesPage()
+private struct centerView: View {
+    var searchedText = ""
+    
+    var body: some View {
+        VStack {
+            
+            Text("No favourites yet")
+                .font(.system(size: 16))
+                .bold()
+                .padding()
+            
+            Text("""
+                     All moves marked as favourite will be
+                    added here
+                    """)
+            .font(.system(size: 12))
+            .padding()
+        }
+        .multilineTextAlignment(.center)
+        .padding()
+    }
 }

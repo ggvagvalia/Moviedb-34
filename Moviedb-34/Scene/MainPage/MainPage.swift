@@ -13,24 +13,33 @@ struct MainPage: View {
     
     var body: some View {
         TabView(selection: $selectedTab ) {
+            
             MoviesListPage()
                 .tabItem {
-                    Image(systemName: "movieclapper")
+                    selectedTab == 0 ? Image("HomeIcon") : Image("HomeIcon-Unselected")
                     Text("Movies")
                 }
                 .tag(0)
+            
             SearchPage(selectedTab: $selectedTab)
                 .tabItem {
-                    Image(systemName: "sparkle.magnifyingglass")
+                    selectedTab != 1 ? Image("SearchIcon-Unselected") : Image("SearchIcon")
                     Text("Search")
                 }
                 .tag(1)
+            
+            FavouritesPage()
+                .tabItem {
+                    selectedTab != 2 ? Image("Save-unselected") : Image("Save-selected")
+                    Text("Favourites")
+                }
+                .tag(2)
         }
     }
 }
 
-#Preview {
-    MainPage()
-        .environmentObject(MoviesListPageViewModel())
-    
-}
+//#Preview {
+//    MainPage()
+//        .environmentObject(MoviesListPageViewModel())
+//        .environmentObject(GenresViewModel())
+//}

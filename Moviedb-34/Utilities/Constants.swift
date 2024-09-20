@@ -16,7 +16,7 @@ struct Constants {
     static let movieListIpadHeight: CGFloat? = {
        return UIDevice.current.userInterfaceIdiom == .pad ? 220 : nil
     }()
-
+    static let horizontalSizeClass = UIScreen.main.traitCollection.horizontalSizeClass
     // trending Movies API
     // let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=\(apiKey)"
 }

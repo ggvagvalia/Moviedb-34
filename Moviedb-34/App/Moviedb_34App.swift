@@ -6,14 +6,22 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct Moviedb_34App: App {
     @StateObject var moviesListViewModel = MoviesListPageViewModel()
+    @StateObject var genresViewModel = GenresViewModel()
+    @StateObject var favoritesViewModel = FavouritesPageViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            MainPage()
+            SplashScreenView()
                 .environmentObject(moviesListViewModel)
+                .environmentObject(genresViewModel)
+                .environmentObject(favoritesViewModel)
+                .modelContainer(for: FavMoviesModel.self)
         }
+        .modelContainer(for: FavMoviesModel.self)
     }
 }

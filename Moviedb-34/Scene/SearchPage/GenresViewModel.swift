@@ -1,5 +1,5 @@
 //
-//  SearchPageModel.swift
+//  GenresViewModel.swift
 //  Moviedb-34
 //
 //  Created by gvantsa gvagvalia on 6/7/24.
@@ -35,5 +35,4 @@ final class GenresViewModel: ObservableObject {
             movieGenres.first { $0.id == id }?.name
         }
     }
-    
 }
