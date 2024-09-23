@@ -1,4 +1,4 @@
-# Moviedb
+# Moviedb 
 
 The Movie App is a simple SwiftUI-based application that allows users to explore a list of movies, search for their favorite titles, and save them to a favorites list. The app uses SwiftData for storing and managing user-selected favorite movies. Key features include:
 
