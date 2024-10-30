@@ -23,7 +23,7 @@ struct MovieDetailsPage: View {
     @EnvironmentObject var moviesListViewModel: MoviesListPageViewModel
     @Environment(\.modelContext) private var context
     //    @Published var favoriteMoviess: [FavMoviesModel] = []
-    
+
     
     var body: some View {
         VStack {

@@ -115,15 +115,22 @@ struct SearchPage: View {
                 if !filteredMovies.isEmpty {
                     ScrollView {
                         ForEach(filteredMovies, id: \.id) { movie in
-                            MovieSearchView(image: movie.posterURL, title: movie.title, releaseDate: movie.release_date, language: movie.original_language, rating: movie.formattedVote, genre: filteredGenres(for: movie))
-                                .listStyle(.grouped)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .padding(.bottom, 20)
+                            NavigationLink(value: movie) {
+                                MovieSearchView(image: movie.posterURL, title: movie.title, releaseDate: movie.release_date, language: movie.original_language, rating: movie.formattedVote, genre: filteredGenres(for: movie))
+                                    .listStyle(.grouped)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                                    .padding(.bottom, 20)
+                            }
                         }
                     }
                     .safeAreaPadding(.leading)
                     .safeAreaPadding(.trailing)
+                    .navigationDestination(for: Movies.self) { movie in
+                        MovieDetailsPage(movieTitle: movie.title, movieDescription: movie.overview, releaseDate: movie.release_date, genre: filteredGenres(for: movie), posterImage: movie.posterURL, backdropImage: movie.backdropImageURL, rating: movie.formattedVote, language: movie.original_language)
+                    }
+
+            
                 } else {
                     Spacer()
                     
@@ -137,9 +144,7 @@ struct SearchPage: View {
             }
             .navigationTitle("Search")
         }
-        .onChange(of: selectedTab) {
-            searchedText = ""
-        }
+
     }
     
     enum FilterBy {
