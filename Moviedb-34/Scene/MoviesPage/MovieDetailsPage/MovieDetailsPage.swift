@@ -18,25 +18,36 @@ struct MovieDetailsPage: View {
     var backdropImage: URL
     var rating: String
     var language: String
-    @State var isHearted = false
     @EnvironmentObject var favorites: FavouritesPageViewModel
     @EnvironmentObject var moviesListViewModel: MoviesListPageViewModel
     @Environment(\.modelContext) private var context
-    //    @Published var favoriteMoviess: [FavMoviesModel] = []
+    private var isHearted: Bool {
+        guard let movie = moviesListViewModel.movies.first(where: { $0.title == movieTitle }) else {
+            return false
+        }
+        
+        let heartedMovie = FavMoviesModel(
+            title: movie.title,
+            overview: movie.overview,
+            releaseDate: movie.release_date,
+            genreIDs: movie.genre_ids,
+            posterPath: movie.poster_path,
+            backdropPath: movie.backdrop_path,
+            voteAverage: movie.vote_average,
+            originalLanguage: movie.original_language
+        )
+        return favorites.isHearted(heartedMovie)
+    }
 
     
     var body: some View {
         VStack {
-            VStack {
-                BackdropMovieView(backdropImage: backdropImage, rating: rating, posterImage: posterImage, movieTitle: movieTitle)
-            }
+            BackdropMovieView(backdropImage: backdropImage, rating: rating, posterImage: posterImage, movieTitle: movieTitle)
             
             VStack(spacing: 25) {
-                
                 AboutMovieHStackView(releaseDate: releaseDate, language: language, genre: genre)
                 
                 VStack(alignment: .leading) {
-                    
                     HStack {
                         Text("About Movie")
                             .font(.system(size: Constants.horizontalSizeClass == .regular ? 27 : 14))
@@ -48,39 +59,13 @@ struct MovieDetailsPage: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            isHearted.toggle()
-                            
-                            if let movie = moviesListViewModel.movies.first(where: { $0.title == movieTitle }) {
-                                let heartedMovie = FavMoviesModel(
-                                    title: movie.title,
-                                    overview: movie.overview,
-                                    releaseDate: movie.release_date,
-                                    genreIDs: movie.genre_ids,
-                                    posterPath: movie.poster_path,
-                                    backdropPath: movie.backdrop_path,
-                                    voteAverage: movie.vote_average,
-                                    originalLanguage: movie.original_language
-                                )
-                                if isHearted {
-                                    if !favorites.isHearted(heartedMovie) {
-                                        favorites.addFavorite(heartedMovie, context: context)
-                                    }
-                                    favorites.stayHearted(for: heartedMovie)
-                                    
-                                } else {
-                                    favorites.removeFavorite(heartedMovie, context: context)
-                                }
-                            }
-                            
-                        }) {
+                        Button(action: toggleHearted) {
                             Image(systemName: isHearted ? "heart.fill" : "heart")
                                 .foregroundColor(.red)
                         }
                     }
                     
                     DescriptionScrollView(movieDescription: movieDescription)
-                    
                 }
             }
             .padding()
@@ -89,27 +74,33 @@ struct MovieDetailsPage: View {
         }
         .navigationBarTitle(Text(movieTitle), displayMode: .inline)
         .onAppear {
-            if let movie = moviesListViewModel.movies.first(where: { $0.title == movieTitle }) {
-                let heartedMovie = FavMoviesModel(
-                    title: movie.title,
-                    overview: movie.overview,
-                    releaseDate: movie.release_date,
-                    genreIDs: movie.genre_ids,
-                    posterPath: movie.poster_path,
-                    backdropPath: movie.backdrop_path,
-                    voteAverage: movie.vote_average,
-                    originalLanguage: movie.original_language
-                )
-                isHearted = favorites.loadHeartedState(for: heartedMovie)
+            // Refresh the view each time it appears
+            // This ensures `isHearted` correctly reflects changes in `favorites`
+            _ = isHearted  // Force evaluation of computed property to update UI
+        }
+    }
+
+    private func toggleHearted() {
+        if let movie = moviesListViewModel.movies.first(where: { $0.title == movieTitle }) {
+            let heartedMovie = FavMoviesModel(
+                title: movie.title,
+                overview: movie.overview,
+                releaseDate: movie.release_date,
+                genreIDs: movie.genre_ids,
+                posterPath: movie.poster_path,
+                backdropPath: movie.backdrop_path,
+                voteAverage: movie.vote_average,
+                originalLanguage: movie.original_language
+            )
+            
+            if isHearted {
+                favorites.removeFavorite(heartedMovie, context: context)
+            } else {
+                favorites.addFavorite(heartedMovie, context: context)
             }
         }
     }
-    //    func addItem() {
-    
-    //        context.insert(<#T##model: PersistentModel##PersistentModel#>)
-    //}
 }
-
 private struct BackdropMovieView: View {
     var backdropImage: URL
     var rating: String
