@@ -51,6 +51,7 @@ struct FavouritesPage: View {
             }
             .navigationTitle("Favourites")
         }
+
         
         .onAppear {
             for movie in movies {

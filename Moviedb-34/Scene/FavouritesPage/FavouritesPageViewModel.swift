@@ -14,13 +14,13 @@ final class FavouritesPageViewModel: ObservableObject {
     
     init() {
     }
-    
+
     func updateFavorites(from movies: [FavMoviesModel]) {
         favoriteMoviess = movies
     }
     
     func isHearted(_ movie: FavMoviesModel) -> Bool {
-        return favoriteMoviess.contains {$0.title == movie.title}
+         favoriteMoviess.contains {$0.title == movie.title}
     }
     
     func addFavorite(_ movie: FavMoviesModel, context: ModelContext) {
