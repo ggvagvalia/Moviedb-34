@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MoviesListPage: View {
     @EnvironmentObject var moviesListViewModel: MoviesListPageViewModel
     @EnvironmentObject var genresViewModel: GenresViewModel
+    @EnvironmentObject var favouritesPageViewModel: FavouritesPageViewModel
     @State private var isLoading = false
+    @Query private var favoriteMoviesModel: [FavMoviesModel]
     
     @State private var columns: [GridItem] = {
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -44,14 +47,31 @@ struct MoviesListPage: View {
                         LazyVGrid(columns: columns) {
                             ForEach(movies, id: \.id) { movie in
                                 NavigationLink(value: movie) {
-                                    MoviesListView(image: movie.posterURL, title: movie.title)
+                                    MoviesListView(
+                                        image: movie.posterURL,
+                                        title: movie.title
+//                                        codableModel: movie,
+//                                        favouritesPageViewModel: _favouritesPageViewModel
+                                    )
+                                        // MARK: - ბოლო ორი მხ. მაშინ მჭირდება თუ ლისთში გულს გამოვაჩენ
                                         .padding(.bottom, 20)
                                 }
                             }
                         }
                     }
                     .navigationDestination(for: Movies.self) { movie in
-                        MovieDetailsPage(movieTitle: movie.title, movieDescription: movie.overview, releaseDate: movie.release_date, genre: filteredGenres(for: movie), posterImage: movie.posterURL, backdropImage: movie.backdropImageURL, rating: movie.formattedVote, language: movie.original_language)
+                        MovieDetailsPage(
+                            movieTitle: movie.title,
+                            movieDescription: movie.overview,
+                            releaseDate: movie.release_date,
+                            genre: filteredGenres(for: movie),
+                            posterImage: movie.posterURL,
+                            backdropImage: movie.backdropImageURL,
+                            rating: movie.formattedVote,
+                            language: movie.original_language,
+                            codableModel: movie,
+                            favouritesPageViewModel: _favouritesPageViewModel
+                        )
                     }
                     .navigationTitle("Movies")
                     .safeAreaPadding(.leading, 8)
@@ -59,7 +79,8 @@ struct MoviesListPage: View {
                 }
             }
             .onAppear {
-                moviesListViewModel.fetchData()
+//                moviesListViewModel.fetchData()
+                favouritesPageViewModel.updateFavorites(from: favoriteMoviesModel)
             }
         }
         .foregroundStyle(.black)

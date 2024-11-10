@@ -34,32 +34,40 @@ struct FavouritesPage: View {
                     ScrollView {
                         ForEach(movies, id: \.self) { movie in
                             NavigationLink(value: movie) {
-                                MovieSearchView(image: movie.posterURL, title: movie.title, releaseDate: movie.releaseDate, language: movie.originalLanguage, rating: movie.formattedVote, genre: filteredGenres(for: movie))
-                                    .listStyle(.grouped)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
-                                    .padding(.bottom, 20)
+                                MovieSearchView(
+                                    image: movie.posterURL,
+                                    title: movie.title,
+                                    releaseDate: movie.releaseDate,
+                                    language: movie.originalLanguage, 
+                                    rating: movie.formattedVote,
+                                    genre: filteredGenres(for: movie))
+                                .listStyle(.grouped)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .padding(.bottom, 20)
                             }
                         }
                     }
                     .safeAreaPadding(.leading)
                     .safeAreaPadding(.trailing)
-                    .navigationDestination(for: FavMoviesModel.self) { movie in
-                        MovieDetailsPage(movieTitle: movie.title, movieDescription: movie.overview, releaseDate: movie.releaseDate, genre: filteredGenres(for: movie), posterImage: movie.posterURL, backdropImage: movie.backdropImageURL, rating: movie.formattedVote, language: movie.originalLanguage)
-                    }
+                    // MARK: - ToDo - add heart button
+//                    .navigationDestination(for: FavMoviesModel.self) { movie in
+//                        MovieDetailsPage(
+//                            movieTitle: movie.title,
+//                            movieDescription: movie.overview, 
+//                            releaseDate: movie.releaseDate,
+//                            genre: filteredGenres(for: movie),
+//                            posterImage: movie.posterURL,
+//                            backdropImage: movie.backdropImageURL,
+//                            rating: movie.formattedVote,
+//                            language: movie.originalLanguage)
+//                    }
                 }
             }
             .navigationTitle("Favourites")
-        }
-
-        
+        }    
         .onAppear {
-            for movie in movies {
-                let isHearted = favorites.loadHeartedState(for: movie)
-                if isHearted {
-                    favorites.addFavorite(movie, context: context)
-                }
-            }
+            favorites.updateFavorites(from: movies)
         }
     }
 }

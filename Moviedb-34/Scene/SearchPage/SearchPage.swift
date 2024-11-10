@@ -116,7 +116,13 @@ struct SearchPage: View {
                     ScrollView {
                         ForEach(filteredMovies, id: \.id) { movie in
                             NavigationLink(value: movie) {
-                                MovieSearchView(image: movie.posterURL, title: movie.title, releaseDate: movie.release_date, language: movie.original_language, rating: movie.formattedVote, genre: filteredGenres(for: movie))
+                                MovieSearchView(
+                                    image: movie.posterURL, 
+                                    title: movie.title,
+                                    releaseDate: movie.release_date,
+                                    language: movie.original_language,
+                                    rating: movie.formattedVote,
+                                    genre: filteredGenres(for: movie))
                                     .listStyle(.grouped)
                                     .background(Color.white)
                                     .cornerRadius(10)
@@ -127,9 +133,19 @@ struct SearchPage: View {
                     .safeAreaPadding(.leading)
                     .safeAreaPadding(.trailing)
                     .navigationDestination(for: Movies.self) { movie in
-                        MovieDetailsPage(movieTitle: movie.title, movieDescription: movie.overview, releaseDate: movie.release_date, genre: filteredGenres(for: movie), posterImage: movie.posterURL, backdropImage: movie.backdropImageURL, rating: movie.formattedVote, language: movie.original_language)
+                        MovieDetailsPage(
+                            movieTitle: movie.title,
+                            movieDescription: movie.overview,
+                            releaseDate: movie.release_date,
+                            genre: filteredGenres(for: movie),
+                            posterImage: movie.posterURL,
+                            backdropImage: movie.backdropImageURL,
+                            rating: movie.formattedVote,
+                            language: movie.original_language,
+                            codableModel: movie,
+                        moviesListViewModel: _moviesListViewModel
+                        )
                     }
-
             
                 } else {
                     Spacer()

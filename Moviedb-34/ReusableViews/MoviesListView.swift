@@ -12,6 +12,8 @@ struct MoviesListView: View {
     var title: String
     var releaseDate: String?
     var language: String?
+    var codableModel: Movies?
+    @EnvironmentObject var favouritesPageViewModel: FavouritesPageViewModel
     
     var body: some View {
         
@@ -24,13 +26,14 @@ struct MoviesListView: View {
                 
                 Spacer()
                 
-                Text(title)
-                    .bold()
-                    .font(.system(size: UIDevice.current.userInterfaceIdiom == .pad ? 18 : 12))
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(Color(.label))
-                    .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 10 : 0)
-                
+                HStack(alignment: .top) {
+                    Text(title)
+                        .bold()
+                        .font(.system(size: UIDevice.current.userInterfaceIdiom == .pad ? 18 : 12))
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(Color(.label))
+                        .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 10 : 0)
+                }
             }
             .background(Color(.systemBackground))
         }

@@ -18,12 +18,10 @@ struct MovieDetailsPage: View {
     var backdropImage: URL
     var rating: String
     var language: String
-    @State var isHearted = false
-    @EnvironmentObject var favorites: FavouritesPageViewModel
+    var codableModel: Movies?
+    @EnvironmentObject var favouritesPageViewModel: FavouritesPageViewModel
     @EnvironmentObject var moviesListViewModel: MoviesListPageViewModel
-    @Environment(\.modelContext) private var context
-    //    @Published var favoriteMoviess: [FavMoviesModel] = []
-    
+    @Query private var heartedMovies: [FavMoviesModel]
     
     var body: some View {
         VStack {
@@ -47,38 +45,11 @@ struct MovieDetailsPage: View {
                             .bold()
                         
                         Spacer()
-                        
-                        Button(action: {
-                            isHearted.toggle()
-                            
-                            guard let movie = moviesListViewModel.movies.first(where: { $0.title == movieTitle }) else {
-                                   return
-                               }
-                            
-                                let heartedMovie = FavMoviesModel(
-                                    title: movie.title,
-                                    overview: movie.overview,
-                                    releaseDate: movie.release_date,
-                                    genreIDs: movie.genre_ids,
-                                    posterPath: movie.poster_path,
-                                    backdropPath: movie.backdrop_path,
-                                    voteAverage: movie.vote_average,
-                                    originalLanguage: movie.original_language
-                                )
-                                if isHearted {
-                                    if !favorites.isHearted(heartedMovie) {
-                                        favorites.addFavorite(heartedMovie, context: context)
-                                    }
-                                    favorites.stayHearted(for: heartedMovie)
-                                    
-                                } else {
-                                    favorites.removeFavorite(heartedMovie, context: context)
-                                }
-                            isHearted = favorites.isHearted(heartedMovie)
-                            
-                        }) {
-                            Image(systemName: isHearted ? "heart.fill" : "heart")
-                                .foregroundColor(.red)
+                        // MARK: - Todo - favourites გვერდიდანაც თუ გამოვაჩენ 🤍-ს
+                        if let movie = codableModel {
+                            HeartButton(movie: movie, favouritesPageViewModel: _favouritesPageViewModel)
+                        } else {
+//                            Text("no data availableeee")
                         }
                     }
                     
@@ -92,22 +63,12 @@ struct MovieDetailsPage: View {
         }
         .navigationBarTitle(Text(movieTitle), displayMode: .inline)
         .onAppear {
-            if let movie = moviesListViewModel.movies.first(where: { $0.title == movieTitle }) {
-                let heartedMovie = FavMoviesModel(
-                    title: movie.title,
-                    overview: movie.overview,
-                    releaseDate: movie.release_date,
-                    genreIDs: movie.genre_ids,
-                    posterPath: movie.poster_path,
-                    backdropPath: movie.backdrop_path,
-                    voteAverage: movie.vote_average,
-                    originalLanguage: movie.original_language
-                )
-                isHearted = favorites.loadHeartedState(for: heartedMovie)
-            }
+//            favouritesPageViewModel.updateFavorites(from: heartedMovies)
+            // აქ გულს თუ ვაჩვენებ ლისთშივე მაშინ მჭირდება ეს მხოლოდ.
         }
     }
 }
+
 
 private struct BackdropMovieView: View {
     var backdropImage: URL
@@ -185,12 +146,9 @@ private struct ImageWithTitleView: View {
 }
 
 private struct AboutMovieHStackView: View {
-    //    var movieDescription: String
     var releaseDate: String
     var language: String
     var genre: [String]
-    //    @Binding var isHearted: Bool
-    
     
     var body: some View {
         HStack {
@@ -247,23 +205,3 @@ private struct DescriptionScrollView: View {
         }
     }
 }
-
-
-
-//struct MovieDetailsPage_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MovieDetailsPage(
-//            movieTitle: "Spiderman No Way Home, nono",
-//            movieDescription: "A thief who enters the dreams of others to steal secrets from their subconsciousA thief who enters the dreams of others to steal secrets from their subconsciousA thief who enters the dreams of others to steal secrets from their subconsciousA thief who enters the dreams of others to steal secrets from their subconsciousA thief who enters the dreams of others to steal secrets from their subconsciousA thief who enters the dreams of others to steal secrets from their subconscious.",
-//            releaseDate: "2010-07-16",
-//            runtime: "2h 28min",
-//            genre: ["Action", "Adventure", "Sci-Fi"],
-//            posterImage: URL(string: "https://image.tmdb.org/t/p/original/gKkl37BQuKTanygYQG1pyYgLVgf.jpg")!,
-//            backdropImage: URL(string: "https://image.tmdb.org/t/p/original//fqv8v6AycXKsivp1T5yKtLbGXce.jpg")!,
-//            rating: "8.8",
-//            language: "En"
-//        )
-//        .navigationBarTitle(Text("Inception"), displayMode: .inline)
-//    }
-//
-//}

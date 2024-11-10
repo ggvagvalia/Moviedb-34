@@ -27,6 +27,7 @@
 		94F40E6A2C0FABC400421371 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94F40E692C0FABC400421371 /* Preview Assets.xcassets */; };
 		94F40E792C0FB0F600421371 /* MoviesListPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F40E782C0FB0F600421371 /* MoviesListPage.swift */; };
 		94F40E7B2C0FB12100421371 /* SearchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F40E7A2C0FB12100421371 /* SearchPage.swift */; };
+		94FE49372CDFA99F00DB8602 /* HeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FE49362CDFA99F00DB8602 /* HeartButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		94F40E692C0FABC400421371 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		94F40E782C0FB0F600421371 /* MoviesListPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListPage.swift; sourceTree = "<group>"; };
 		94F40E7A2C0FB12100421371 /* SearchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPage.swift; sourceTree = "<group>"; };
+		94FE49362CDFA99F00DB8602 /* HeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				94405C8D2C131A0F00BC1E91 /* MovieDetailsPage.swift */,
+				94FE49362CDFA99F00DB8602 /* HeartButton.swift */,
 			);
 			path = MovieDetailsPage;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				94F40E652C0FABC100421371 /* MainPage.swift in Sources */,
 				944F50282C14D5DE00E8BB51 /* FamouritesPageModel.swift in Sources */,
 				942271322C0FB56500E1609B /* MoviesListModel.swift in Sources */,
+				94FE49372CDFA99F00DB8602 /* HeartButton.swift in Sources */,
 				94405C882C11BE8700BC1E91 /* Constants.swift in Sources */,
 				94405C8A2C1312B200BC1E91 /* MovieSearchView.swift in Sources */,
 				944F50262C14D4C900E8BB51 /* FavouritesPageViewModel.swift in Sources */,

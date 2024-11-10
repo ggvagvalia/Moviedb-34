@@ -5,44 +5,56 @@
 //  Created by gvantsa gvagvalia on 6/8/24.
 //
 
-import SwiftUI
+//import SwiftUI
 import SwiftData
 import Foundation
 
-final class FavouritesPageViewModel: ObservableObject {
-    @Published var favoriteMoviess: [FavMoviesModel] = []
+ class FavouritesPageViewModel: ObservableObject {
+    @Published var favoriteMovies: [FavMoviesModel] = []
     
-    init() {
-    }
 
     func updateFavorites(from movies: [FavMoviesModel]) {
-        favoriteMoviess = movies
+        favoriteMovies = movies
     }
     
-    func isHearted(_ movie: FavMoviesModel) -> Bool {
-         favoriteMoviess.contains {$0.title == movie.title}
-    }
     
-    func addFavorite(_ movie: FavMoviesModel, context: ModelContext) {
-        favoriteMoviess.append(movie)
-        context.insert(movie)
+//    @MainActor
+//    func isHearted(movie: Movies) -> Bool {
+//         favoriteMovies.contains {$0.title == movie.title}
+//    }
+     @MainActor
+     func isHearted(movie: Movies) -> Bool {
+         favoriteMovies.contains { $0.title == movie.title }
+     }
+     
+    
+
+     @MainActor
+
+    func addFavorite(movie: Movies, context: ModelContext) {
+        let newAddedMovie = FavMoviesModel(title: movie.title, overview: movie.overview, releaseDate: String(movie.releaseDateFormated), genreIDs: movie.genre_ids, posterPath: movie.poster_path, backdropPath: movie.backdrop_path, voteAverage: Double(movie.vote_count), originalLanguage: movie.original_language)
+        context.insert(newAddedMovie)
+        favoriteMovies.append(newAddedMovie)
         try? context.save()
     }
     
-    func removeFavorite(_ movie: FavMoviesModel, context: ModelContext) {
-        if let index = favoriteMoviess.firstIndex(where: { $0.title == movie.title }) {
-            context.delete(favoriteMoviess[index])
-            favoriteMoviess.remove(at: index) 
-            try? context.save()
-        }
+    func removeFavorite(heartedMovie: FavMoviesModel, context: ModelContext) {
+//        if let index = favoriteMovies.firstIndex(where: { $0.title == movie.title }) {
+//            context.delete(favoriteMovies[index])
+//            favoriteMovies.remove(at: index) 
+//            try? context.save()
+//        }
+        context.delete(heartedMovie)
+        favoriteMovies.removeAll { $0.id == heartedMovie.id}
+        try? context.save()
     }
     
-    func stayHearted(for movie: FavMoviesModel) {
-        UserDefaults.standard.set(true, forKey: movie.title)
-    }
-    
-    func loadHeartedState(for movie: FavMoviesModel) -> Bool {
-        return UserDefaults.standard.bool(forKey: movie.title)
-    }
+//    func stayHearted(for movie: FavMoviesModel) {
+//        UserDefaults.standard.set(true, forKey: movie.title)
+//    }
+//    
+//    func loadHeartedState(for movie: FavMoviesModel) -> Bool {
+//        return UserDefaults.standard.bool(forKey: movie.title)
+//    }
     
 }

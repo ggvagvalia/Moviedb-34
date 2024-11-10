@@ -20,7 +20,6 @@ struct Moviedb_34App: App {
                 .environmentObject(moviesListViewModel)
                 .environmentObject(genresViewModel)
                 .environmentObject(favoritesViewModel)
-                .modelContainer(for: FavMoviesModel.self)
         }
         .modelContainer(for: FavMoviesModel.self)
     }
