@@ -24,6 +24,7 @@ struct MovieDetailsPage: View {
     @Query private var heartedMovies: [FavMoviesModel]
     
     var body: some View {
+        
         VStack {
             VStack {
                 BackdropMovieView(backdropImage: backdropImage, rating: rating, posterImage: posterImage, movieTitle: movieTitle)
@@ -36,20 +37,15 @@ struct MovieDetailsPage: View {
                 VStack(alignment: .leading) {
                     
                     HStack {
-                        Text("About Movie")
-                            .font(.system(size: Constants.horizontalSizeClass == .regular ? 27 : 14))
-                            .foregroundStyle(Color(uiColor: .label))
-                            .padding(.horizontal, 7)
-                            .padding(.bottom, 1)
-                            .padding(.top)
-                            .bold()
+                        
+                        AboutMovieTextView()
                         
                         Spacer()
                         // MARK: - Todo - favourites გვერდიდანაც თუ გამოვაჩენ 🤍-ს
                         if let movie = codableModel {
                             HeartButton(movie: movie, favouritesPageViewModel: _favouritesPageViewModel)
                         } else {
-//                            Text("no data availableeee")
+                            //                            Text("no data availableeee")
                         }
                     }
                     
@@ -61,14 +57,27 @@ struct MovieDetailsPage: View {
             .padding(.top, screenHeight * 0.07)
             
         }
-        .navigationBarTitle(Text(movieTitle), displayMode: .inline)
         .onAppear {
-//            favouritesPageViewModel.updateFavorites(from: heartedMovies)
+            //            favouritesPageViewModel.updateFavorites(from: heartedMovies)
             // აქ გულს თუ ვაჩვენებ ლისთშივე მაშინ მჭირდება ეს მხოლოდ.
         }
     }
 }
 
+private struct AboutMovieTextView: View {
+    
+    var body: some View {
+        
+        Text("About Movie")
+            .font(.system(size: Constants.horizontalSizeClass == .regular ? 27 : 14))
+            .foregroundStyle(Color(uiColor: .label))
+            .padding(.horizontal, 7)
+            .padding(.bottom, 1)
+            .padding(.top)
+            .bold()
+        
+    }
+}
 
 private struct BackdropMovieView: View {
     var backdropImage: URL
@@ -87,8 +96,7 @@ private struct BackdropMovieView: View {
                             topLeadingRadius: 0,
                             bottomLeadingRadius: 16,
                             bottomTrailingRadius: 16,
-                            topTrailingRadius: 0
-                        )
+                            topTrailingRadius: 0)
                     )
             }
             

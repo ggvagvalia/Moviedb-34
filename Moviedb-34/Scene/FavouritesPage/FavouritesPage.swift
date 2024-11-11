@@ -38,9 +38,10 @@ struct FavouritesPage: View {
                                     image: movie.posterURL,
                                     title: movie.title,
                                     releaseDate: movie.releaseDate,
-                                    language: movie.originalLanguage, 
+                                    language: movie.originalLanguage,
                                     rating: movie.formattedVote,
-                                    genre: filteredGenres(for: movie))
+                                    genre: filteredGenres(for: movie),
+                                    codableModel: Movies(backdrop_path: movie.backdropPath, genre_ids: movie.genreIDs, id: movie.hashValue, original_language: movie.originalLanguage, overview: movie.overview, poster_path: movie.posterPath, release_date: movie.releaseDate, title: movie.title, vote_average: Double(movie.formattedVote) ?? 0, vote_count: Int(movie.voteAverage)))
                                 .listStyle(.grouped)
                                 .background(Color.white)
                                 .cornerRadius(10)
@@ -50,22 +51,23 @@ struct FavouritesPage: View {
                     }
                     .safeAreaPadding(.leading)
                     .safeAreaPadding(.trailing)
-                    // MARK: - ToDo - add heart button
-//                    .navigationDestination(for: FavMoviesModel.self) { movie in
-//                        MovieDetailsPage(
-//                            movieTitle: movie.title,
-//                            movieDescription: movie.overview, 
-//                            releaseDate: movie.releaseDate,
-//                            genre: filteredGenres(for: movie),
-//                            posterImage: movie.posterURL,
-//                            backdropImage: movie.backdropImageURL,
-//                            rating: movie.formattedVote,
-//                            language: movie.originalLanguage)
-//                    }
+                    .navigationDestination(for: FavMoviesModel.self) { movie in
+                        MovieDetailsPage(
+                            movieTitle: movie.title,
+                            movieDescription: movie.overview,
+                            releaseDate: movie.releaseDate,
+                            genre: filteredGenres(for: movie),
+                            posterImage: movie.posterURL,
+                            backdropImage: movie.backdropImageURL,
+                            rating: movie.formattedVote,
+                            language: movie.originalLanguage,
+                            codableModel: Movies(backdrop_path: movie.backdropPath, genre_ids: movie.genreIDs, id: movie.hashValue, original_language: movie.originalLanguage, overview: movie.overview, poster_path: movie.posterPath, release_date: movie.releaseDate, title: movie.title, vote_average: Double(movie.formattedVote) ?? 0, vote_count: Int(movie.voteAverage)))
+                        
+                    }
                 }
             }
             .navigationTitle("Favourites")
-        }    
+        }
         .onAppear {
             favorites.updateFavorites(from: movies)
         }

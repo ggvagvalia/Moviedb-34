@@ -16,6 +16,7 @@ struct SearchPage: View {
     @State private var isMenuSelected = false
     @Binding var selectedTab: Int
     @Environment(\.colorScheme) var mode
+    @EnvironmentObject var favouritesPageViewModel: FavouritesPageViewModel
     
     private var movies: [Movies] {
         return moviesListViewModel.movies
@@ -56,7 +57,6 @@ struct SearchPage: View {
         _filterCr = State(initialValue: .title)
     }
     
-    
     var body: some View {
         
         NavigationStack {
@@ -75,40 +75,8 @@ struct SearchPage: View {
                     .background(Color.searchbackground)
                     .cornerRadius(16)
                     
-                    Menu {
-                        
-                        Button(action: {
-                            filterCr = .title
-                            searchedText = ""
-                        }) {
-                            HStack {
-                                filterCr == .title ? Image(systemName: "checkmark") : nil
-                                Text("Title")
-                            }
-                        }
-                        Button(action: {
-                            filterCr = .genre
-                            searchedText = ""
-                        }) {
-                            HStack {
-                                filterCr == .genre ? Image(systemName: "checkmark") : nil
-                                Text("Genre")
-                            }
-                        }
-                        Button(action: {
-                            filterCr = .year
-                            searchedText = ""
-                        }) {
-                            HStack {
-                                filterCr == .year ? Image(systemName: "checkmark") : nil
-                                Text("Year")
-                            }
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
-                            .font(.system(size: 25))
-                            .foregroundStyle(mode == .light ? .black : .white )
-                    }
+                    FilterMenu(filterCr: $filterCr, searchedText: $searchedText, mode: _mode)
+                    
                 }
                 .padding()
                 
@@ -117,16 +85,16 @@ struct SearchPage: View {
                         ForEach(filteredMovies, id: \.id) { movie in
                             NavigationLink(value: movie) {
                                 MovieSearchView(
-                                    image: movie.posterURL, 
+                                    image: movie.posterURL,
                                     title: movie.title,
                                     releaseDate: movie.release_date,
                                     language: movie.original_language,
                                     rating: movie.formattedVote,
-                                    genre: filteredGenres(for: movie))
-                                    .listStyle(.grouped)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
-                                    .padding(.bottom, 20)
+                                    genre: filteredGenres(for: movie), codableModel: movie)
+                                .listStyle(.grouped)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .padding(.bottom, 20)
                             }
                         }
                     }
@@ -143,10 +111,10 @@ struct SearchPage: View {
                             rating: movie.formattedVote,
                             language: movie.original_language,
                             codableModel: movie,
-                        moviesListViewModel: _moviesListViewModel
+                            favouritesPageViewModel: _favouritesPageViewModel
                         )
                     }
-            
+                    
                 } else {
                     Spacer()
                     
@@ -160,16 +128,53 @@ struct SearchPage: View {
             }
             .navigationTitle("Search")
         }
-
+        
     }
     
-    enum FilterBy {
-        case title
-        case genre
-        case year
-    }
 }
 
+struct FilterMenu: View {
+    @Binding  var filterCr: FilterBy?
+    @Binding  var searchedText: String
+    @Environment(\.colorScheme) var mode
+    
+    var body: some View {
+        Menu {
+            
+            Button(action: {
+                filterCr = .title
+                searchedText = ""
+            }) {
+                HStack {
+                    filterCr == .title ? Image(systemName: "checkmark") : nil
+                    Text("Title")
+                }
+            }
+            Button(action: {
+                filterCr = .genre
+                searchedText = ""
+            }) {
+                HStack {
+                    filterCr == .genre ? Image(systemName: "checkmark") : nil
+                    Text("Genre")
+                }
+            }
+            Button(action: {
+                filterCr = .year
+                searchedText = ""
+            }) {
+                HStack {
+                    filterCr == .year ? Image(systemName: "checkmark") : nil
+                    Text("Year")
+                }
+            }
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .font(.system(size: 25))
+                .foregroundStyle(mode == .light ? .black : .white )
+        }
+    }
+}
 
 private struct centerView: View {
     var searchedText = ""
@@ -210,6 +215,11 @@ private struct centerView: View {
     }
 }
 
+enum FilterBy {
+    case title
+    case genre
+    case year
+}
 
 #Preview {
     MainPage()

@@ -19,6 +19,7 @@ struct MovieSearchView: View {
     
     var body: some View {
         HStack {
+            
             ImageView(imageJPG: image)
                 .frame(width: screenWidth * 0.26, height: screenHeight * 0.18)
                 .cornerRadius(16)
@@ -29,10 +30,16 @@ struct MovieSearchView: View {
                 
                 Spacer()
                 
+                if let codableModel {
+                    HeartButton(movie: codableModel, favouritesPageViewModel: _favouritesPageViewModel)
+                }
+                
+                Spacer()
+                
                 Group {
-                    if let codableModel {
-                        RatingView(rating: rating, codableModel: codableModel, favouritesPageViewModel: _favouritesPageViewModel)
-                    }
+                    
+                    RatingView(rating: rating, codableModel: codableModel, favouritesPageViewModel: _favouritesPageViewModel)
+                    
                     GenreView(genre: genre)
                     
                     LanguageView(language: language)
@@ -52,84 +59,75 @@ struct MovieSearchView: View {
         var title: String
         
         var body: some View {
-            //            ScrollView(.horizontal, showsIndicators: false) {
-            Text(title)
-                .multilineTextAlignment(.leading)
-                .lineLimit(3)
-                .bold()
-                .font(.system(size: Constants.horizontalSizeClass == .regular ? 28 : 16))
-            //                    .truncationMode(.tail)
-            
-//        }
-        //            .scrollIndicators(.visible)
-    }
-}
-
-private struct RatingView: View {
-    @Environment(\.colorScheme) var mode
-    var rating: String
-    var codableModel: Movies?
-    @EnvironmentObject var favouritesPageViewModel: FavouritesPageViewModel
-    
-    
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "star")
-            Text("\(rating)")
-            Spacer()
-            if let codableModel {
-                HeartButton(movie: codableModel, favouritesPageViewModel: _favouritesPageViewModel)
+            VStack {
+                Text(title)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(3)
+                    .bold()
+                    .font(.system(size: Constants.horizontalSizeClass == .regular ? 28 : 16))
             }
         }
-        .foregroundStyle(.orange)
-        .bold()
     }
-}
-
-private struct GenreView: View {
-    @Environment(\.colorScheme) var mode
-    var genre: [String]
     
-    var body: some View {
-        HStack {
-            
-            Image(mode == .light ? "TicketIcon" : "TicketIcon-DarkMode")
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(genre, id: \.self) { genre in
-                        Text(genre)
+    private struct RatingView: View {
+        @Environment(\.colorScheme) var mode
+        var rating: String
+        var codableModel: Movies?
+        @EnvironmentObject var favouritesPageViewModel: FavouritesPageViewModel
+        
+        var body: some View {
+            HStack {
+                Image(systemName: "star")
+                Text("\(rating)")
+            }
+            .foregroundStyle(.orange)
+            .bold()
+        }
+    }
+    
+    private struct GenreView: View {
+        @Environment(\.colorScheme) var mode
+        var genre: [String]
+        
+        var body: some View {
+            HStack {
+                
+                Image(mode == .light ? "TicketIcon" : "TicketIcon-DarkMode")
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(genre, id: \.self) { genre in
+                            Text(genre)
+                        }
                     }
                 }
             }
         }
     }
-}
-
-private struct LanguageView: View {
-    var language: String
     
-    var body: some View {
-        HStack {
-            Image(systemName: "character.bubble")
-                .font(.system(size: 12))
-            Text(language)
+    private struct LanguageView: View {
+        var language: String
+        
+        var body: some View {
+            HStack {
+                Image(systemName: "character.bubble")
+                    .font(.system(size: 12))
+                Text(language)
+            }
         }
     }
-}
-
-private struct ReleaseYearView: View {
-    @Environment(\.colorScheme) var mode
-    var releaseDate: String
     
-    var body: some View {
-        HStack {
-            Image(mode == .light ? "CalendarIcon" : "CalendarIcon-DarkMode")
-            Text(releaseDate.prefix(4))
+    private struct ReleaseYearView: View {
+        @Environment(\.colorScheme) var mode
+        var releaseDate: String
+        
+        var body: some View {
+            HStack {
+                Image(mode == .light ? "CalendarIcon" : "CalendarIcon-DarkMode")
+                Text(releaseDate.prefix(4))
+            }
         }
     }
-}
 }
 
 

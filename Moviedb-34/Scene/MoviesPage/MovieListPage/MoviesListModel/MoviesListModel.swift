@@ -12,7 +12,7 @@ struct MoviesListModel: Hashable, Decodable {
 }
 
 struct Movies: Hashable, Decodable {
-    var adult: Bool
+    var adult: Bool?
     var backdrop_path: String
     var genre_ids: [Int]
     var id: Int

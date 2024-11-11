@@ -11,8 +11,7 @@ import NetworkingNew
 final class MoviesListPageViewModel: ObservableObject {
     let networking = NetworkingNew.shared
     @Published var movies: [Movies] = []
-//    var codableModel: Movies?
-
+    
     private var isLoading = false
     
     init() {

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainPage: View {
     @State var selectedTab = 0
-//    @EnvironmentObject var moviesListViewModel: MoviesListPageViewModel
     
     var body: some View {
         TabView(selection: $selectedTab ) {

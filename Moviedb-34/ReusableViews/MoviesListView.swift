@@ -40,7 +40,6 @@ struct MoviesListView: View {
     }
 }
 
-
 //#Preview {
 //    MoviesListPage()
 //        .environmentObject(MoviesListPageViewModel())

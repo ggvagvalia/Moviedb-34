@@ -13,8 +13,6 @@ struct MoviesListPage: View {
     @EnvironmentObject var genresViewModel: GenresViewModel
     @EnvironmentObject var favouritesPageViewModel: FavouritesPageViewModel
     @State private var isLoading = false
-    @Query private var favoriteMoviesModel: [FavMoviesModel]
-    
     @State private var columns: [GridItem] = {
         if UIDevice.current.userInterfaceIdiom == .pad {
             return [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
@@ -22,6 +20,7 @@ struct MoviesListPage: View {
             return [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
         }
     }()
+    @Query private var favoriteMoviesModel: [FavMoviesModel]
     
     private var movies: [Movies] {
         return moviesListViewModel.movies
@@ -50,11 +49,11 @@ struct MoviesListPage: View {
                                     MoviesListView(
                                         image: movie.posterURL,
                                         title: movie.title
-//                                        codableModel: movie,
-//                                        favouritesPageViewModel: _favouritesPageViewModel
-                                    )
+                                        //                                        codableModel: movie,
+                                        //                                        favouritesPageViewModel: _favouritesPageViewModel
                                         // MARK: - ბოლო ორი მხ. მაშინ მჭირდება თუ ლისთში გულს გამოვაჩენ
-                                        .padding(.bottom, 20)
+                                    )
+                                    .padding(.bottom, 20)
                                 }
                             }
                         }
@@ -79,7 +78,6 @@ struct MoviesListPage: View {
                 }
             }
             .onAppear {
-//                moviesListViewModel.fetchData()
                 favouritesPageViewModel.updateFavorites(from: favoriteMoviesModel)
             }
         }
