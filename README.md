@@ -8,9 +8,11 @@ Favorites: Save your favorite movies and access them quickly on the favorites pa
 
 Built using SwiftUI and SwiftData for data handling and storage.
 
+📹 [Watch the Video Walkthrough](https://drive.google.com/file/d/1f1kv-T-X62Cu_bH9QXU2S_JONHrPTuMl/view?usp=sharing)
+
 ### Figma
 
-https://www.figma.com/design/wT2wVqgMAB7wsLo9CmRcHo/Movie?node-id=0-1&node-type=canvas
+🖌️ [Check out Project Design in Figma](https://www.figma.com/design/wT2wVqgMAB7wsLo9CmRcHo/Movie?node-id=0-1&node-type=canvas)
 
 <img width="350" alt="Screenshot 2024-09-20 at 4 21 22 AM" src="https://github.com/user-attachments/assets/67711463-b31c-44b4-a867-d6e6a96f64ce">
 
