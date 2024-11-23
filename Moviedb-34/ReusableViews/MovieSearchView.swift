@@ -124,6 +124,8 @@ struct MovieSearchView: View {
         var body: some View {
             HStack {
                 Image(mode == .light ? "CalendarIcon" : "CalendarIcon-DarkMode")
+//                    .font(.system(size: Constants.horizontalSizeClass == .regular ? 24 : 12))
+
                 Text(releaseDate.prefix(4))
             }
         }

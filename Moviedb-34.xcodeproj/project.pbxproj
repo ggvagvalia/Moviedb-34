@@ -72,6 +72,7 @@
 				942271352C0FC07400E1609B /* MoviesListView.swift */,
 				94405C892C1312B100BC1E91 /* MovieSearchView.swift */,
 				9422713A2C0FD98600E1609B /* ImageView.swift */,
+				94FE49362CDFA99F00DB8602 /* HeartButton.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -88,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				94405C8D2C131A0F00BC1E91 /* MovieDetailsPage.swift */,
-				94FE49362CDFA99F00DB8602 /* HeartButton.swift */,
 			);
 			path = MovieDetailsPage;
 			sourceTree = "<group>";

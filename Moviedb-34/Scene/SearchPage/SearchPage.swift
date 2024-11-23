@@ -184,7 +184,8 @@ private struct centerView: View {
             if searchedText.isEmpty {
                 
                 Text("Use the magic search!")
-                    .font(.system(size: 16))
+                    .font(.system(size: UIDevice.current.userInterfaceIdiom == .pad ? 26 : 16))
+
                     .bold()
                     .padding()
                 
@@ -192,7 +193,8 @@ private struct centerView: View {
                      I will do my best to search everything
                      relevant, I promise!
                     """)
-                .font(.system(size: 12))
+                .font(.system(size: UIDevice.current.userInterfaceIdiom == .pad ? 21 : 12))
+
                 .padding()
                 
             } else {
@@ -201,12 +203,14 @@ private struct centerView: View {
                      oh no isn’t this
                      so embarrassing?
                     """)
-                .font(.system(size: 16))
+                .font(.system(size: UIDevice.current.userInterfaceIdiom == .pad ? 26 : 16))
+
                 .bold()
                 .padding()
                 
                 Text("I cannot find any movie with this name.")
-                    .font(.system(size: 12))
+                    .font(.system(size: UIDevice.current.userInterfaceIdiom == .pad ? 21 : 12))
+
                     .padding()
             }
         }

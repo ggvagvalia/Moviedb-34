@@ -25,6 +25,7 @@ struct HeartButton: View {
                 }
             }, label: {
                 Image(systemName: favouritesPageViewModel.isHearted(movie: movie) ? "heart.fill" : "heart")
+                    .font(.system(size: UIDevice.current.userInterfaceIdiom == .pad ? 25 : 16))
                     .foregroundColor(.red)
             })
         }

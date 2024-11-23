@@ -24,7 +24,6 @@ struct MoviesListView: View {
                     .aspectRatio(4/3, contentMode: .fit)
                     .foregroundStyle(Color(.label))
                 
-                Spacer()
                 
                 HStack(alignment: .top) {
                     Text(title)
@@ -33,7 +32,10 @@ struct MoviesListView: View {
                         .multilineTextAlignment(.center)
                         .foregroundStyle(Color(.label))
                         .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 10 : 0)
+                    //                Spacer()
                 }
+                Spacer()
+
             }
             .background(Color(.systemBackground))
         }
