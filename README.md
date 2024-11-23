@@ -8,9 +8,18 @@ Favorites: Save your favorite movies and access them quickly on the favorites pa
 
 Built using SwiftUI and SwiftData for data handling and storage.
 
+## Compatibility
+- 📱 iPhone
+- 💻 iPad
+
+📹 [Watch the Video Walkthrough - on iPhone](https://drive.google.com/file/d/1uKLdv5rtFgar30T-c27U-yVaJtAPuAL6/view?usp=sharing)
+
+📹 [Watch the Video Walkthrough - on iPad](https://drive.google.com/file/d/1qjb8rjnBmkyC7a9X_SooW_DYn8pTWylz/view?usp=sharing)
+
+
 ### Figma
 
-https://www.figma.com/design/wT2wVqgMAB7wsLo9CmRcHo/Movie?node-id=0-1&node-type=canvas
+🖌️ [Check out Project Design in Figma](https://www.figma.com/design/wT2wVqgMAB7wsLo9CmRcHo/Movie?node-id=0-1&node-type=canvas)
 
 <img width="350" alt="Screenshot 2024-09-20 at 4 21 22 AM" src="https://github.com/user-attachments/assets/67711463-b31c-44b4-a867-d6e6a96f64ce">
 
