@@ -7,7 +7,7 @@ Search Movies: Easily search for movies by title using the search page.
 Favorites: Save your favorite movies and access them quickly on the favorites page.
 
 Built using SwiftUI and SwiftData for data handling and storage.
-
+ 
 ## Compatibility
 - 📱 iPhone
 - 💻 iPad
