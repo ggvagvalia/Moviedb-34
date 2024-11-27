@@ -21,12 +21,12 @@ Built using SwiftUI and SwiftData for data handling and storage.
 
 🖌️ [Check out Project Design in Figma](https://www.figma.com/design/wT2wVqgMAB7wsLo9CmRcHo/Movie?node-id=0-1&node-type=canvas)
 
-<img width="450" alt="Screenshot 2024-09-20 at 4 21 22 AM" src="https://github.com/user-attachments/assets/67711463-b31c-44b4-a867-d6e6a96f64ce">
+<img width="505" alt="Screenshot 2024-09-20 at 4 21 22 AM" src="https://github.com/user-attachments/assets/67711463-b31c-44b4-a867-d6e6a96f64ce">
 
-<img width="980" alt="Screenshot 2024-09-20 at 4 22 19 AM" src="https://github.com/user-attachments/assets/a5841ea4-9067-4bc8-9363-5878705e6b4c">
-<img width="430" alt="Screenshot 2024-09-20 at 4 22 35 AM" src="https://github.com/user-attachments/assets/ffb7b557-8d13-4d1c-a5cd-5463f5d03114">
+<img width="880" alt="Screenshot 2024-09-20 at 4 22 19 AM" src="https://github.com/user-attachments/assets/a5841ea4-9067-4bc8-9363-5878705e6b4c">
+<img width="480" alt="Screenshot 2024-09-20 at 4 22 35 AM" src="https://github.com/user-attachments/assets/ffb7b557-8d13-4d1c-a5cd-5463f5d03114">
 
-<img width="980" alt="Screenshot 2024-09-20 at 4 22 52 AM" src="https://github.com/user-attachments/assets/b03e1518-2139-4722-8c24-6f00398af90e">
+<img width="880" alt="Screenshot 2024-09-20 at 4 22 52 AM" src="https://github.com/user-attachments/assets/b03e1518-2139-4722-8c24-6f00398af90e">
 
 ### Features
 
